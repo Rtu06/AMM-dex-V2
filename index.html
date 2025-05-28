@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMM DEX - Uniswap V2 Inspired</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen bg-gray-100">
+    <div class="gradient-bg w-full h-64 absolute top-0 left-0 -z-10"></div>
+    
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg">
+                    <i class="fas fa-exchange-alt text-purple-600 text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-white">AMM DEX</h1>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="network-indicator flex items-center space-x-2 bg-white px-4 py-2 rounded-full shadow">
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="font-medium text-gray-800">Ethereum</span>
+                </div>
+                
+                <button class="bg-white bg-opacity-90 hover:bg-opacity-100 px-4 py-2 rounded-full font-medium text-gray-800 shadow transition-all">
+                    <i class="fas fa-wallet mr-2"></i> 0x1f...3e4a
+                </button>
+                
+                <button class="bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full shadow transition-all">
+                    <i class="fas fa-cog text-gray-600"></i>
+                </button>
+            </div>
+        </header>
+        
+        <!-- Main Swap Interface -->
+        <div class="max-w-md mx-auto">
+            <div class="swap-container bg-white rounded-3xl p-6 shadow-xl">
+                <!-- Swap Header Tabs -->
+                <div class="flex mb-6 border-b border-gray-200">
+                    <button class="flex-1 py-3 font-medium text-purple-600 border-b-2 border-purple-600">
+                        Swap
+                    </button>
+                    <button class="flex-1 py-3 font-medium text-gray-500 hover:text-gray-700">
+                        Pool
+                    </button>
+                    <button class="flex-1 py-3 font-medium text-gray-500 hover:text-gray-700">
+                        Vote
+                    </button>
+                </div>
+                
+                <!-- From Token Input -->
+                <div class="mb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-sm font-medium text-gray-500">From</label>
+                        <span class="text-sm text-gray-500">Balance: 2.145 ETH</span>
+                    </div>
+                    <div class="flex items-center bg-gray-50 rounded-xl p-4 border border-gray-200">
+                        <input type="number" placeholder="0.0" class="flex-1 text-3xl font-medium bg-transparent outline-none">
+                        <button class="token-selector flex items-center space-x-2 bg-white px-3 py-2 rounded-lg shadow-sm border border-gray-200 transition-all">
+                            <div class="w-6 h-6 rounded-full bg-blue-500"></div>
+                            <span class="font-medium">ETH</span>
+                            <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Swap Direction Button -->
+                <div class="flex justify-center -my-2 z-10 relative">
+                    <button class="bg-gray-100 hover:bg-gray-200 p-2 rounded-full border-4 border-white shadow transition-all">
+                        <i class="fas fa-arrow-down text-gray-600"></i>
+                    </button>
+                </div>
+                
+                <!-- To Token Input -->
+                <div class="mt-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-sm font-medium text-gray-500">To</label>
+                        <span class="text-sm text-gray-500">Balance: 0.0</span>
+                    </div>
+                    <div class="flex items-center bg-gray-50 rounded-xl p-4 border border-gray-200">
+                        <input type="number" placeholder="0.0" class="flex-1 text-3xl font-medium bg-transparent outline-none">
+                        <button class="token-selector flex items-center space-x-2 bg-white px-3 py-2 rounded-lg shadow-sm border border-gray-200 transition-all">
+                            <div class="w-6 h-6 rounded-full bg-yellow-500"></div>
+                            <span class="font-medium">Select token</span>
+                            <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Price Info -->
+                <div class="mt-6 bg-gray-50 rounded-xl p-4">
+                    <div class="flex justify-between text-sm text-gray-500 mb-2">
+                        <span>Price</span>
+                        <span>1 ETH = 1,850.42 USDC</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <span>Minimum received</span>
+                        <span>1,840.12 USDC</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-500 mt-2">
+                        <span>Price impact</span>
+                        <span class="price-impact-low">0.05%</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-500 mt-2">
+                        <span>Liquidity provider fee</span>
+                        <span>0.003 ETH</span>
+                    </div>
+                </div>
+                
+                <!-- Swap Button -->
+                <button class="w-full gradient-bg hover:opacity-90 text-white font-bold py-4 px-4 rounded-xl mt-6 shadow-lg transition-all">
+                    Swap
+                </button>
+            </div>
+            
+            <!-- Liquidity Pools Section -->
+            <div class="mt-8 bg-white rounded-3xl p-6 shadow-xl">
+                <h2 class="text-lg font-bold mb-4">Top Liquidity Pools</h2>
+                
+                <div class="space-y-4">
+                    <!-- Pool 1 -->
+                    <div class="flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex">
+                                <div class="w-8 h-8 rounded-full bg-blue-500 border-2 border-white"></div>
+                                <div class="w-8 h-8 rounded-full bg-yellow-500 border-2 border-white -ml-2"></div>
+                            </div>
+                            <div>
+                                <h3 class="font-medium">ETH/USDC</h3>
+                                <p class="text-xs text-gray-500">0.3% fee</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-medium">$12.4M</p>
+                            <p class="text-xs text-gray-500">24h vol: $4.2M</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Pool 2 -->
+                    <div class="flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex">
+                                <div class="w-8 h-8 rounded-full bg-blue-500 border-2 border-white"></div>
+                                <div class="w-8 h-8 rounded-full bg-green-500 border-2 border-white -ml-2"></div>
+                            </div>
+                            <div>
+                                <h3 class="font-medium">ETH/DAI</h3>
+                                <p class="text-xs text-gray-500">0.3% fee</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-medium">$8.7M</p>
+                            <p class="text-xs text-gray-500">24h vol: $3.1M</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Pool 3 -->
+                    <div class="flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-all">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex">
+                                <div class="w-8 h-8 rounded-full bg-yellow-500 border-2 border-white"></div>
+                                <div class="w-8 h-8 rounded-full bg-red-500 border-2 border-white -ml-2"></div>
+                            </div>
+                            <div>
+                                <h3 class="font-medium">USDC/USDT</h3>
+                                <p class="text-xs text-gray-500">0.05% fee</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-medium">$15.2M</p>
+                            <p class="text-xs text-gray-500">24h vol: $6.8M</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="w-full mt-4 text-purple-600 font-medium py-3 px-4 rounded-xl border border-purple-600 hover:bg-purple-50 transition-all">
+                    View all pools
+                </button>
+            </div>
+            
+            <!-- Recent Transactions -->
+            <div class="mt-8 bg-white rounded-3xl p-6 shadow-xl">
+                <h2 class="text-lg font-bold mb-4">Recent Transactions</h2>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-all">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+                                <i class="fas fa-exchange-alt text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-medium">Swap ETH for USDC</h3>
+                                <p class="text-xs text-gray-500">2 mins ago</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-medium">+1,842.12 USDC</p>
+                            <p class="text-xs text-gray-500">-1.0 ETH</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-all">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                                <i class="fas fa-plus text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-medium">Add Liquidity</h3>
+                                <p class="text-xs text-gray-500">1 hour ago</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-medium">ETH/USDC</p>
+                            <p class="text-xs text-gray-500">$5,000</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-all">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                                <i class="fas fa-exchange-alt text-green-600"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-medium">Swap DAI for ETH</h3>
+                                <p class="text-xs text-gray-500">5 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-medium">+0.54 ETH</p>
+                            <p class="text-xs text-gray-500">-1,000 DAI</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-gray-500 text-sm">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="hover:text-purple-600 transition-colors">Docs</a>
+                <a href="#" class="hover:text-purple-600 transition-colors">GitHub</a>
+                <a href="#" class="hover:text-purple-600 transition-colors">Twitter</a>
+                <a href="#" class="hover:text-purple-600 transition-colors">Discord</a>
+            </div>
+            <p>© 2023 AMM DEX. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Simple JavaScript for token selector functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Token selector buttons
+            const tokenSelectors = document.querySelectorAll('.token-selector');
+            
+            tokenSelectors.forEach(button => {
+                button.addEventListener('click', function() {
+                    // In a real app, this would open a token selection modal
+                    console.log('Token selector clicked');
+                });
+            });
+            
+            // Swap button
+            const swapButton = document.querySelector('.swap-container button');
+            swapButton.addEventListener('click', function() {
+                // In a real app, this would initiate the swap transaction
+                console.log('Swap initiated');
+            });
+            
+            // Simulate network connection status
+            setInterval(() => {
+                const indicator = document.querySelector('.network-indicator');
+                indicator.classList.toggle('bg-green-500');
+                indicator.classList.toggle('bg-yellow-500');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
